@@ -1,0 +1,75 @@
+// Prisma schema for Online Medicine Shop
+// Switch provider by changing the datasource provider and DATABASE_URL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // optional, fallback logic below
+  url      = env("DATABASE_URL")
+}
+
+// Models
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  username     String
+  passwordHash String
+  address      String?
+  phone        String?
+  orders       Order[]
+  cart         Cart?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Product {
+  id            Int       @id @default(autoincrement())
+  name          String
+  description   String
+  price         Float
+  imageUrl      String?
+  stockQuantity Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  CartItem      CartItem[]
+  OrderItem     OrderItem[]
+}
+
+model Cart {
+  id      Int        @id @default(autoincrement())
+  userId  Int        @unique
+  user    User       @relation(fields: [userId], references: [id])
+  items   CartItem[]
+}
+
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  cartId    Int
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  userId     Int
+  user       User        @relation(fields: [userId], references: [id])
+  totalPrice Float
+  status     String      @default("PENDING")
+  createdAt  DateTime    @default(now())
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id          Int     @id @default(autoincrement())
+  orderId     Int
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productName String
+  price       Float
+  productId   Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity    Int
+}

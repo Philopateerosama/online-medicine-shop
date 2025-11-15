@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MedConnect – Online Pharmacy & Healthcare</title>
+  <meta name="description" content="MedConnect is Egypt's trusted online pharmacy for medicines, wellness, and personal care. Upload prescriptions, consult pharmacists, and get fast, discreet delivery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="home.html" aria-label="MedConnect home">
+        <span class="logo" aria-hidden="true">
+          <!-- Simple inline logo -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" fill="var(--primary-600)"/>
+            <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">MedConnect</span>
+      </a>
+      <nav class="primary-nav" aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="#catalog">Shop</a></li>
+          <li><a href="orders.html">My Orders</a></li>
+          <li><a href="services.html#blog">Health Blog</a></li>
+        </ul>
+      </nav>
+      <div id="authControls" class="auth-controls">
+        <a class="btn btn-ghost" href="login.html">Login</a>
+        <a class="btn btn-secondary" href="signup.html">Sign Up</a>
+      </div>
+      <button id="cartBtn" class="btn btn-ghost" aria-label="Open cart">
+        🛒 <span id="cartCount" class="badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero / Search with Carousel -->
+  <section class="hero" role="region" aria-label="Search and highlights">
+    <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel" data-bs-interval="2000">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" style="background-image:url('imges/WhatsApp Image 2025-10-11 at 15.15.52_c1e734a8.jpg');"></div>
+        <div class="carousel-item" style="background-image:url('imges/WhatsApp Image 2025-10-11 at 15.18.28_15290d1b.jpg');"></div>
+        <div class="carousel-item" style="background-image:url('imges/WhatsApp Image 2025-10-11 at 15.35.44_e876571c.jpg');"></div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Previous slide">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next" aria-label="Next slide">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <h1>Trusted Online Pharmacy in Egypt</h1>
+          <p>Order prescription and OTC medicines, wellness products, and personal care. Fast & discreet delivery.</p>
+          <form id="searchForm" class="search" role="search" aria-label="Sitewide product search">
+            <input id="searchInput" type="search" placeholder="Search medicines, vitamins, skincare..." aria-label="Search products" />
+            <button class="btn" type="submit">Search</button>
+          </form>
+          <div class="hero-ctas">
+            <a class="btn btn-ghost" href="#catalog">Browse Catalog</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- Catalog -->
+  <section id="catalog" class="catalog" role="region" aria-label="Product catalog">
+    <div class="container">
+      <div class="catalog-layout">
+        <aside class="catalog-sidebar" aria-label="Categories">
+          <h3 class="section-title" style="font-size:1.1rem">Categories</h3>
+          <div class="sidebar-scroll">
+            <div id="categoryChips" class="chips" role="list"></div>
+          </div>
+        </aside>
+        <div class="catalog-main">
+          <div class="catalog-head">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="sort">
+              <label for="sortSelect">Sort</label>
+              <select id="sortSelect" aria-label="Sort products">
+                <option value="popularity">Most Popular</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name">Name</option>
+              </select>
+            </div>
+          </div>
+          <div id="productGrid" class="grid"></div>
+          <div id="emptyState" class="empty" hidden>
+            <p>No products match your search. Try different keywords.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" fill="var(--primary-600)"/>
+            <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">MedConnect</span>
+        <p class="footer-tag">Accessible. Affordable. Trusted.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-copy">© <span id="year"></span> MedConnect. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <aside id="cartDrawer" class="cart-drawer" aria-hidden="true" aria-label="Shopping cart drawer">
+    <div class="cart-header">
+      <h3>Cart</h3>
+      <button id="closeCartBtn" class="btn btn-ghost" aria-label="Close cart">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: <strong id="cartTotal">EGP 0.00</strong></div>
+      <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+  <div id="backdrop" class="backdrop" hidden></div>
+
+  <!-- Chat Widget -->
+  <div id="chatWidget" class="chat-widget">
+    <div class="chat-widget-header">
+      <h3>How can we help?</h3>
+      <button id="closeChat" class="chat-close-btn" aria-label="Close chat">×</button>
+    </div>
+    <div id="chatMessages" class="chat-messages">
+      <div class="chat-message bot">
+        <p>Hello! I'm here to help. Please select a question:</p>
+      </div>
+    </div>
+    <div id="chatQuestions" class="chat-questions">
+      <!-- Questions will be populated by JavaScript -->
+    </div>
+  </div>
+  <button id="chatToggle" class="chat-toggle" aria-label="Open chat">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+
+  <style>
+    /* Chat Widget Styles */
+    .chat-widget {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 350px;
+      height: 450px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      overflow: hidden;
+      transform: translateY(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .chat-widget.visible {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .chat-widget-header {
+      background: #2563eb;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-widget-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .chat-close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 5px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+
+    .chat-message {
+      margin-bottom: 15px;
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 18px;
+      line-height: 1.4;
+      font-size: 0.95rem;
+    }
+
+    .chat-message.user {
+      background: #2563eb;
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-message.bot {
+      background: #e5e7eb;
+      color: #111827;
+      margin-right: auto;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-questions {
+      padding: 15px;
+      border-top: 1px solid #e5e7eb;
+      background: white;
+      max-height: 40%;
+      overflow-y: auto;
+    }
+
+    .question-btn {
+      display: block;
+      width: 100%;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #1f2937;
+      transition: all 0.2s;
+    }
+
+    .question-btn:hover {
+      background: #f3f4f6;
+      border-color: #9ca3af;
+    }
+
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .chat-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    }
+
+    .chat-toggle svg {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+
+  <script src="assets/js/auth.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/chatbot.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
