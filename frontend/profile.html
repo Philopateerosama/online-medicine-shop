@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="assets/js/auth-guard.js"></script>
+  <title>الملف الشخصي – MedConnect</title>
+  <meta name="description" content="إدارة بيانات حسابك في MedConnect، التفضيلات، وعرض الأنشطة الأخيرة." />
+  <script>window.location.replace('home.html');</script>
+  <noscript><meta http-equiv="refresh" content="0;url=home.html"></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="home.html" aria-label="الانتقال للصفحة الرئيسية لـ MedConnect">
+        <span class="logo" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" fill="var(--primary-600)"/>
+            <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">MedConnect</span>
+      </a>
+      <nav class="primary-nav" aria-label="القائمة الرئيسية">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="home.html#catalog">التسوق</a></li>
+          <li><a href="orders.html">طلباتي</a></li>
+          <li><a href="services.html#blog">مدونة الصحة</a></li>
+        </ul>
+      </nav>
+      <div id="authControls" class="auth-controls">
+        <a class="btn btn-ghost" href="login.html">تسجيل الدخول</a>
+        <a class="btn btn-secondary" href="signup.html">إنشاء حساب</a>
+      </div>
+      <button id="cartBtn" class="btn btn-ghost" aria-label="فتح السلة">
+        🛒 <span id="cartCount" class="badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container" style="padding:24px 0">
+    <div class="page-head" style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px">
+      <h1 class="section-title" style="margin:0">الملف الشخصي</h1>
+      <span id="profileHi" class="chip">مرحباً</span>
+    </div>
+
+    <div class="grid" style="grid-template-columns: 1.1fr .9fr; gap:16px; align-items:start">
+      <!-- Profile card -->
+      <section class="card">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+          <div id="avatar" style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--primary-50);color:var(--primary-700);font-weight:600">U</div>
+          <div>
+            <div class="product-title" id="displayName">مستخدم</div>
+            <div class="product-meta" id="displayEmail">user@example.com</div>
+          </div>
+        </div>
+        <hr/>
+        <form id="profileForm" class="form">
+          <div class="form-row">
+            <label for="name">الاسم الكامل</label>
+            <input type="text" id="name" placeholder="اكتب اسمك" required />
+          </div>
+          <div class="form-row">
+            <label for="email">البريد الإلكتروني</label>
+            <input type="email" id="email" placeholder="name@example.com" required />
+          </div>
+          <div class="form-row">
+            <label for="password">كلمة المرور</label>
+            <input type="password" id="password" placeholder="••••••" minlength="6" />
+            <small class="product-meta">اتركها فارغة للإبقاء على كلمة المرور الحالية</small>
+          </div>
+          <div class="card-actions" style="margin-top:8px">
+            <button class="btn" type="submit">حفظ التغييرات</button>
+            <button class="btn btn-ghost" id="logoutBtn" type="button">تسجيل الخروج</button>
+          </div>
+          <div id="profileMsg" class="product-meta" style="margin-top:6px"></div>
+        </form>
+      </section>
+
+      <!-- Fun / preferences -->
+      <section class="card">
+        <h3 style="margin-top:0;margin-bottom:8px">التفضيلات</h3>
+        <div class="form-row" style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="product-title" style="font-size:1rem">الوضع الداكن</div>
+            <div class="product-meta">تفعيل/إيقاف السمة الداكنة</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="prefDark" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="form-row" style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="product-title" style="font-size:1rem">التنبيهات البريدية</div>
+            <div class="product-meta">استلام العروض ونصائح صحية</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="prefEmail" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h3 style="margin:0">النشاطات الأخيرة</h3>
+        <a class="btn btn-ghost" href="orders.html">عرض الطلبات</a>
+      </div>
+      <div id="activity" class="product-meta">لا يوجد نشاط بعد.</div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" fill="var(--primary-600)"/>
+            <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">MedConnect</span>
+        <p class="footer-tag">Accessible. Affordable. Trusted.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-copy">© <span id="year"></span> MedConnect. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <aside id="cartDrawer" class="cart-drawer" aria-hidden="true" aria-label="Shopping cart drawer">
+    <div class="cart-header">
+      <h3>Cart</h3>
+      <button id="closeCartBtn" class="btn btn-ghost" aria-label="Close cart">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: <strong id="cartTotal">EGP 0.00</strong></div>
+      <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+  <div id="backdrop" class="backdrop" hidden></div>
+
+  <script src="assets/js/auth.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/profile.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
