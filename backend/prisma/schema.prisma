@@ -16,8 +16,16 @@ model User {
   email        String    @unique
   username     String
   passwordHash String
+  resetToken   String?
+  resetTokenExpiry DateTime?
   address      String?
   phone        String?
+  dateOfBirth  DateTime?
+  gender       String?
+  bloodType    String?
+  weight       Float?
+  height       Float?
+  allergies    String?
   orders       Order[]
   cart         Cart?
   createdAt    DateTime  @default(now())

@@ -20,9 +20,19 @@
     wrap.innerHTML = '';
     if(isLoggedIn()){
       const user = getUser();
-      const name = document.createElement('span');
-      name.className = 'auth-name';
-      name.textContent = user?.username ? `Hi, ${user.username}` : 'Logged in';
+      const name = document.createElement('a');
+      name.href = 'profile.html';
+      name.className = 'auth-profile';
+      name.title = 'Go to profile';
+      name.setAttribute('aria-label', 'Go to your profile');
+      name.innerHTML = `
+        <span class="icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12c2.761 0 5-2.686 5-6s-2.239-6-5-6-5 2.686-5 6 2.239 6 5 6Zm0 2c-4.418 0-8 2.91-8 6.5V23h16v-2.5C20 16.91 16.418 14 12 14Z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="label">${user?.username || 'Profile'}</span>
+      `;
 
       const out = document.createElement('button');
       out.className = 'btn btn-ghost';

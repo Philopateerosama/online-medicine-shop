@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="assets/js/auth-guard.js"></script>
-  <title>الملف الشخصي – MedConnect</title>
-  <meta name="description" content="إدارة بيانات حسابك في MedConnect، التفضيلات، وعرض الأنشطة الأخيرة." />
-  <script>window.location.replace('home.html');</script>
-  <noscript><meta http-equiv="refresh" content="0;url=home.html"></noscript>
+  <title>Health Dashboard – MedConnect</title>
+  <meta name="description" content="View and manage your MedConnect health profile in a secure dashboard." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <!-- Header / Navigation -->
+  <!-- Header copied from home.html -->
   <header class="site-header" role="banner">
     <div class="container header-inner">
-      <a class="brand" href="home.html" aria-label="الانتقال للصفحة الرئيسية لـ MedConnect">
+      <a class="brand" href="home.html" aria-label="MedConnect home">
         <span class="logo" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="5" fill="var(--primary-600)"/>
@@ -27,99 +25,195 @@
         </span>
         <span class="brand-text">MedConnect</span>
       </a>
-      <nav class="primary-nav" aria-label="القائمة الرئيسية">
+      <nav class="primary-nav" aria-label="Primary">
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
         <ul id="nav-menu" class="nav-menu">
-          <li><a href="home.html#catalog">التسوق</a></li>
-          <li><a href="orders.html">طلباتي</a></li>
-          <li><a href="services.html#blog">مدونة الصحة</a></li>
+          <li><a href="home.html#catalog">Shop</a></li>
+          <li><a href="orders.html">My Orders</a></li>
+          <li><a href="services.html#blog">Health Blog</a></li>
         </ul>
       </nav>
       <div id="authControls" class="auth-controls">
-        <a class="btn btn-ghost" href="login.html">تسجيل الدخول</a>
-        <a class="btn btn-secondary" href="signup.html">إنشاء حساب</a>
+        <a class="btn btn-ghost" href="login.html">Login</a>
+        <a class="btn btn-secondary" href="signup.html">Sign Up</a>
       </div>
-      <button id="cartBtn" class="btn btn-ghost" aria-label="فتح السلة">
+      <button id="cartBtn" class="btn btn-ghost" aria-label="Open cart">
         🛒 <span id="cartCount" class="badge">0</span>
       </button>
     </div>
   </header>
 
-  <main class="container" style="padding:24px 0">
-    <div class="page-head" style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px">
-      <h1 class="section-title" style="margin:0">الملف الشخصي</h1>
-      <span id="profileHi" class="chip">مرحباً</span>
+  <main class="container profile-page">
+    <div class="page-head">
+      <h1 class="section-title">Health Dashboard</h1>
+      <p class="section-sub">All information is read-only until you verify your password.</p>
     </div>
 
-    <div class="grid" style="grid-template-columns: 1.1fr .9fr; gap:16px; align-items:start">
-      <!-- Profile card -->
-      <section class="card">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
-          <div id="avatar" style="width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--primary-50);color:var(--primary-700);font-weight:600">U</div>
+    <div class="profile-stack">
+      <!-- Personal info card -->
+      <section class="card profile-card" aria-labelledby="profileInfoTitle">
+        <div class="profile-card-header">
+          <div id="avatar" class="avatar">U</div>
           <div>
-            <div class="product-title" id="displayName">مستخدم</div>
-            <div class="product-meta" id="displayEmail">user@example.com</div>
+            <div id="displayName" class="profile-name">User</div>
+            <div id="displayEmail" class="profile-email">user@example.com</div>
           </div>
         </div>
-        <hr/>
-        <form id="profileForm" class="form">
+        <hr />
+        <form id="profileForm" class="form" novalidate>
+          <h2 id="profileInfoTitle" class="card-title">Personal Information</h2>
+
+          <div class="form-grid form-grid-4">
+            <div class="form-row">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="Your full name" required disabled />
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="name@example.com" disabled />
+            </div>
+            <div class="form-row">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+201234567890" disabled />
+            </div>
+            <div class="form-row">
+              <label for="dob">Date of Birth</label>
+              <input type="text" id="dob" placeholder="dd/mm/yyyy" disabled />
+            </div>
+          </div>
+
+          <div class="form-grid form-grid-4">
+            <div class="form-row">
+              <label for="height">Height (cm)</label>
+              <input type="number" id="height" placeholder="170" step="0.1" min="0" disabled />
+            </div>
+            <div class="form-row">
+              <label for="weight">Weight (kg)</label>
+              <input type="number" id="weight" placeholder="70" step="0.1" min="0" disabled />
+            </div>
+            <div class="form-row">
+              <label for="bloodType">Blood Type</label>
+              <select id="bloodType" disabled>
+                <option value="">Select blood type</option>
+                <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="gender">Gender</label>
+              <select id="gender" disabled>
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-row">
-            <label for="name">الاسم الكامل</label>
-            <input type="text" id="name" placeholder="اكتب اسمك" required />
+            <label for="address">Full Address</label>
+            <textarea id="address" rows="2" placeholder="Street, City, Country" disabled></textarea>
           </div>
           <div class="form-row">
-            <label for="email">البريد الإلكتروني</label>
-            <input type="email" id="email" placeholder="name@example.com" required />
+            <label for="allergies">Allergies & Conditions</label>
+            <textarea id="allergies" rows="3" placeholder="Allergies, chronic conditions, or medications" disabled></textarea>
           </div>
-          <div class="form-row">
-            <label for="password">كلمة المرور</label>
-            <input type="password" id="password" placeholder="••••••" minlength="6" />
-            <small class="product-meta">اتركها فارغة للإبقاء على كلمة المرور الحالية</small>
+
+          <div class="card-actions card-actions-end">
+            <div class="action-row">
+              <button class="btn" id="editBtn" type="button">Edit Profile</button>
+              <button class="btn" id="saveBtn" type="submit" style="display: none;">Save Changes</button>
+              <button class="btn btn-ghost" id="cancelBtn" type="button" style="display: none;">Cancel</button>
+            </div>
           </div>
-          <div class="card-actions" style="margin-top:8px">
-            <button class="btn" type="submit">حفظ التغييرات</button>
-            <button class="btn btn-ghost" id="logoutBtn" type="button">تسجيل الخروج</button>
-          </div>
-          <div id="profileMsg" class="product-meta" style="margin-top:6px"></div>
+          <div id="profileMsg" class="profile-message"></div>
         </form>
       </section>
 
-      <!-- Fun / preferences -->
-      <section class="card">
-        <h3 style="margin-top:0;margin-bottom:8px">التفضيلات</h3>
-        <div class="form-row" style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <div class="product-title" style="font-size:1rem">الوضع الداكن</div>
-            <div class="product-meta">تفعيل/إيقاف السمة الداكنة</div>
+      <!-- Health widgets -->
+      <div class="health-row">
+        <section class="card health-card summary-card" aria-live="polite">
+          <h3>Health Summary</h3>
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span>Blood Type</span>
+              <strong id="summaryBloodType">--</strong>
+            </div>
+            <div class="summary-row">
+              <span>Age</span>
+              <strong id="summaryAge">--</strong>
+            </div>
+            <div class="summary-row">
+              <span>Gender</span>
+              <strong id="summaryGender">--</strong>
+            </div>
+            <div class="summary-row">
+              <span>Height</span>
+              <strong id="summaryHeight">--</strong>
+            </div>
+            <div class="summary-row">
+              <span>Weight</span>
+              <strong id="summaryWeight">--</strong>
+            </div>
           </div>
-          <label class="switch">
-            <input type="checkbox" id="prefDark" />
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="form-row" style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <div class="product-title" style="font-size:1rem">التنبيهات البريدية</div>
-            <div class="product-meta">استلام العروض ونصائح صحية</div>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="prefEmail" />
-            <span class="slider"></span>
-          </label>
-        </div>
-      </section>
-    </div>
+        </section>
 
-    <section class="card" style="margin-top:16px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <h3 style="margin:0">النشاطات الأخيرة</h3>
-        <a class="btn btn-ghost" href="orders.html">عرض الطلبات</a>
+        <section class="card health-card bmi-card" aria-live="polite">
+          <div class="bmi-header">
+            <h3>BMI Calculator</h3>
+            <span class="bmi-unit">kg/m²</span>
+          </div>
+          <div class="bmi-score-block">
+            <div id="bmiValue" class="bmi-value">--</div>
+            <div id="bmiLabel" class="bmi-label">Enter weight and height to see your BMI.</div>
+          </div>
+          <div class="bmi-scale">
+            <div class="bmi-scale-track">
+              <div class="bmi-scale-fill" id="bmiScaleFill"></div>
+              <div class="bmi-marker" id="bmiMarker"></div>
+            </div>
+            <div class="bmi-scale-labels">
+              <div>
+                <span>Underweight</span>
+                <strong>&lt; 18.5</strong>
+              </div>
+              <div>
+                <span>Healthy</span>
+                <strong>18.5 – 24.9</strong>
+              </div>
+              <div>
+                <span>Overweight</span>
+                <strong>25 – 29.9</strong>
+              </div>
+              <div>
+                <span>Obesity</span>
+                <strong>30+</strong>
+              </div>
+            </div>
+          </div>
+          <p class="bmi-tip">Healthy BMI range is 18.5 – 24.9.</p>
+        </section>
       </div>
-      <div id="activity" class="product-meta">لا يوجد نشاط بعد.</div>
-    </section>
+    </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Password verification modal -->
+  <div id="pwdModal" class="pwd-modal" role="dialog" aria-modal="true" aria-labelledby="pwdModalTitle" style="display:none;">
+    <div class="card pwd-modal-inner">
+      <h2 id="pwdModalTitle" class="card-title">Verify Password</h2>
+      <p class="pwd-modal-text">We need to confirm it is you before enabling editing.</p>
+      <div class="form-row">
+        <label for="pwdInput">Password</label>
+        <input type="password" id="pwdInput" placeholder="••••••••" />
+      </div>
+      <div id="pwdErr" class="pwd-error" style="display:none;"></div>
+      <div class="card-actions pwd-actions">
+        <button class="btn btn-ghost" id="pwdCancel" type="button">Cancel</button>
+        <button class="btn" id="pwdConfirm" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer copied from home.html -->
   <footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
       <div class="footer-brand">
@@ -158,6 +252,6 @@
   <script src="assets/js/auth.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/profile.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

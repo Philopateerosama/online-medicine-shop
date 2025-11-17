@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN "allergies" TEXT;
+ALTER TABLE "User" ADD COLUMN "bloodType" TEXT;
+ALTER TABLE "User" ADD COLUMN "dateOfBirth" DATETIME;
+ALTER TABLE "User" ADD COLUMN "gender" TEXT;
+ALTER TABLE "User" ADD COLUMN "height" REAL;
+ALTER TABLE "User" ADD COLUMN "weight" REAL;
