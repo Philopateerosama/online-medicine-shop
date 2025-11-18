@@ -2,82 +2,187 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+const img = (name) => `https://placehold.co/300x200?text=${encodeURIComponent(name)}`;
+
 const products = [
+  // Pain Relief
   {
-    name: 'Paracetamol 500mg',
-    description: 'Pain reliever and fever reducer tablets (500mg).',
-    price: 25.0,
-    stockQuantity: 200,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Paracetamol'
+    name: 'Panadol Extra',
+    description: 'Fast-acting pain reliever for headaches, muscle aches, and fever reduction.',
+    price: 35,
+    stockQuantity: 180,
+    imageUrl: img('Panadol Extra'),
+    category: 'Pain Relief'
   },
+  {
+    name: 'Brufen 400mg',
+    description: 'Ibuprofen tablets for moderate pain relief and anti-inflammatory support.',
+    price: 45,
+    stockQuantity: 160,
+    imageUrl: img('Brufen 400mg'),
+    category: 'Pain Relief'
+  },
+  {
+    name: 'Cataflam 50mg',
+    description: 'Diclofenac potassium tablets targeting strong muscle and joint pain.',
+    price: 55,
+    stockQuantity: 140,
+    imageUrl: img('Cataflam 50mg'),
+    category: 'Pain Relief'
+  },
+  {
+    name: 'Aspirin Protect',
+    description: 'Low-dose aspirin for heart health maintenance and mild pain relief.',
+    price: 25,
+    stockQuantity: 200,
+    imageUrl: img('Aspirin Protect'),
+    category: 'Pain Relief'
+  },
+
+  // Vitamins & Supplements
   {
     name: 'Vitamin C 1000mg',
-    description: 'High potency Vitamin C for immune support.',
-    price: 120.0,
+    description: 'High-potency vitamin C effervescent tablets to support immunity.',
+    price: 120,
     stockQuantity: 150,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Vitamin+C'
-  },
-  {
-    name: 'Blood Pressure Monitor',
-    description: 'Digital arm blood pressure monitor with cuff.',
-    price: 950.0,
-    stockQuantity: 40,
-    imageUrl: 'https://via.placeholder.com/300x200?text=BP+Monitor'
-  },
-  {
-    name: 'Insulin Pen Needles (100 pack)',
-    description: 'Sterile single-use insulin pen needles.',
-    price: 85.0,
-    stockQuantity: 100,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Insulin+Needles'
-  },
-  {
-    name: 'Ibuprofen 200mg',
-    description: 'NSAID for pain and inflammation relief.',
-    price: 45.0,
-    stockQuantity: 180,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Ibuprofen'
-  },
-  {
-    name: 'Sunscreen SPF 50',
-    description: 'Broad-spectrum UVA/UVB protection SPF 50.',
-    price: 210.0,
-    stockQuantity: 120,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Sunscreen+SPF50'
+    imageUrl: img('Vitamin C 1000mg'),
+    category: 'Vitamins & Supplements'
   },
   {
     name: 'Omega-3 Fish Oil',
-    description: 'Omega-3 capsules for heart and brain support.',
-    price: 180.0,
-    stockQuantity: 130,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Omega-3'
+    description: 'Concentrated omega-3 capsules for heart and brain wellness.',
+    price: 180,
+    stockQuantity: 110,
+    imageUrl: img('Omega-3 Fish Oil'),
+    category: 'Vitamins & Supplements'
   },
+  {
+    name: 'Vitamin D3 5000IU',
+    description: 'Maximum-strength vitamin D softgels for bone and immune support.',
+    price: 150,
+    stockQuantity: 120,
+    imageUrl: img('Vitamin D3 5000IU'),
+    category: 'Vitamins & Supplements'
+  },
+  {
+    name: 'Zinc Tablets',
+    description: 'Essential mineral tablets to aid immunity and skin health.',
+    price: 90,
+    stockQuantity: 170,
+    imageUrl: img('Zinc Tablets'),
+    category: 'Vitamins & Supplements'
+  },
+  {
+    name: 'Multivitamin for Men',
+    description: 'Daily multivitamin pack formulated for men’s energy and metabolism.',
+    price: 220,
+    stockQuantity: 130,
+    imageUrl: img('Multivitamin for Men'),
+    category: 'Vitamins & Supplements'
+  },
+
+  // First Aid
   {
     name: 'Digital Thermometer',
-    description: 'Quick-read digital thermometer for body temperature.',
-    price: 130.0,
+    description: 'Quick-read digital thermometer with flexible tip for accurate readings.',
+    price: 130,
     stockQuantity: 90,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Thermometer'
+    imageUrl: img('Digital Thermometer'),
+    category: 'First Aid'
   },
   {
-    name: 'Antacid Chewable Tablets',
-    description: 'Fast relief from heartburn and indigestion.',
-    price: 65.0,
-    stockQuantity: 160,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Antacid'
+    name: 'Medical Bandages (Pack)',
+    description: 'Sterile elastic bandages suitable for dressing wounds and sprains.',
+    price: 40,
+    stockQuantity: 220,
+    imageUrl: img('Medical Bandages'),
+    category: 'First Aid'
   },
   {
-    name: 'Multivitamin Daily',
-    description: 'Daily multivitamin for overall wellness.',
-    price: 140.0,
+    name: 'Antiseptic Solution (Betadine)',
+    description: 'Trusted povidone-iodine solution for cleaning cuts and abrasions.',
+    price: 60,
     stockQuantity: 140,
-    imageUrl: 'https://via.placeholder.com/300x200?text=Multivitamin'
+    imageUrl: img('Antiseptic Solution'),
+    category: 'First Aid'
+  },
+  {
+    name: 'Medical Face Masks (50 Pack)',
+    description: 'Disposable three-layer face masks for everyday protection.',
+    price: 100,
+    stockQuantity: 180,
+    imageUrl: img('Medical Face Masks'),
+    category: 'First Aid'
+  },
+
+  // Skincare & Personal Care
+  {
+    name: 'Sunscreen SPF 50',
+    description: 'Broad-spectrum sunscreen with hydrating finish and SPF 50.',
+    price: 250,
+    stockQuantity: 100,
+    imageUrl: img('Sunscreen SPF 50'),
+    category: 'Skincare & Personal Care'
+  },
+  {
+    name: 'Moisturizing Cream',
+    description: 'Daily face and body cream that locks in moisture for 24 hours.',
+    price: 180,
+    stockQuantity: 120,
+    imageUrl: img('Moisturizing Cream'),
+    category: 'Skincare & Personal Care'
+  },
+  {
+    name: 'Face Wash (Oily Skin)',
+    description: 'Oil-control gel wash that unclogs pores without over-drying.',
+    price: 140,
+    stockQuantity: 110,
+    imageUrl: img('Face Wash Oily Skin'),
+    category: 'Skincare & Personal Care'
+  },
+  {
+    name: 'Hand Sanitizer Gel',
+    description: 'Quick-dry sanitizer gel enriched with aloe for soft hands.',
+    price: 35,
+    stockQuantity: 250,
+    imageUrl: img('Hand Sanitizer Gel'),
+    category: 'Skincare & Personal Care'
+  },
+
+  // Baby Care
+  {
+    name: 'Baby Diapers (Size 3)',
+    description: 'Breathable, leak-proof diapers designed for active infants.',
+    price: 300,
+    stockQuantity: 90,
+    imageUrl: img('Baby Diapers Size 3'),
+    category: 'Baby Care'
+  },
+  {
+    name: 'Baby Shampoo',
+    description: 'Tear-free gentle shampoo infused with chamomile for babies.',
+    price: 120,
+    stockQuantity: 130,
+    imageUrl: img('Baby Shampoo'),
+    category: 'Baby Care'
+  },
+  {
+    name: 'Baby Rash Cream',
+    description: 'Zinc-oxide diaper rash cream that soothes sensitive skin.',
+    price: 85,
+    stockQuantity: 150,
+    imageUrl: img('Baby Rash Cream'),
+    category: 'Baby Care'
   }
 ];
 
 async function main() {
+  console.log('Clearing existing products...');
+  await prisma.product.deleteMany();
+
   console.log('Seeding products...');
   await prisma.product.createMany({ data: products });
+
   console.log('Seed complete.');
 }
 

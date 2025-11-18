@@ -30,7 +30,13 @@
         price: Number(p.price||0),
         desc: p.description||'',
         imageUrl: p.imageUrl||'',
+        category: p.category || 'General'
       }));
+      const uniqueCats = Array.from(new Set(state.products.map(p => p.category))).sort();
+      state.categories = ['All', ...uniqueCats];
+      if(!state.categories.includes(state.category)){
+        state.category = 'All';
+      }
       filterAndRender();
     }catch(err){
       if(grid){ grid.innerHTML = `<div style="color:var(--error)">${err.message}</div>`; }
@@ -196,7 +202,11 @@
   }
   function applyFilters(){
     const q = state.query.toLowerCase();
-    let list = state.products.filter(p=> (!q || p.name.toLowerCase().includes(q) || (p.desc||'').toLowerCase().includes(q)) );
+    let list = state.products.filter(p=> {
+      const matchesQuery = (!q || p.name.toLowerCase().includes(q) || (p.desc||'').toLowerCase().includes(q));
+      const matchesCategory = state.category === 'All' || p.category === state.category;
+      return matchesQuery && matchesCategory;
+    });
     switch(state.sort){
       case 'price-asc': list.sort((a,b)=>a.price-b.price); break;
       case 'price-desc': list.sort((a,b)=>b.price-a.price); break;
