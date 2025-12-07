@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -177,13 +178,42 @@ const products = [
 ];
 
 async function main() {
-  console.log('Clearing existing products...');
+  console.log('Clearing existing data...');
+  await prisma.cartItem.deleteMany();
+  await prisma.orderItem.deleteMany();
   await prisma.product.deleteMany();
 
   console.log('Seeding products...');
   await prisma.product.createMany({ data: products });
 
   console.log('Seed complete.');
+
+  // Create Admin User
+  const adminEmail = 'admin@medconnect.com';
+  const adminExists = await prisma.user.findUnique({ where: { email: adminEmail } });
+
+  if (!adminExists) {
+    console.log('Creating admin user...');
+    try {
+      console.log('Hashing password...');
+      const passwordHash = bcrypt.hashSync('admin123', 10);
+      console.log('Password hashed. Creating user in DB...');
+      await prisma.user.create({
+        data: {
+          email: adminEmail,
+          username: 'Admin',
+          passwordHash,
+          role: 'ADMIN',
+          cart: { create: {} }
+        }
+      });
+      console.log('Admin user created.');
+    } catch (err) {
+      console.error('Error creating admin user:', err);
+    }
+  } else {
+    console.log('Admin user already exists.');
+  }
 }
 
 main()

@@ -16,7 +16,8 @@ export async function me(req, res, next) {
         bloodType: true,
         weight: true,
         height: true,
-        allergies: true
+        allergies: true,
+        role: true
       }
     });
     return res.json(user);
@@ -78,7 +79,8 @@ export async function updateMe(req, res, next) {
         bloodType: true,
         weight: true,
         height: true,
-        allergies: true
+        allergies: true,
+        role: true
       }
     });
     return res.json(updated);
